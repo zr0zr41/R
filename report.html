@@ -4,7 +4,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <link rel="shortcut icon" type="image/x-icon" href="https://i.postimg.cc/FH4srtHr/logo39.png">
 
-
 <!-- Add Open Graph Meta Tags -->
 <meta property="og:title" content="الإبلاغ عن الأنشطة المشبوهة - جهاز الأمن والمخابرات">
 <meta property="og:description" content="موقع رسمي لجهاز الأمن والمخابرات للإبلاغ عن الأنشطة المشبوهة. ساهم في حماية أمن الوطن.">
@@ -30,6 +29,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css">
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shepherd.js@10.0.1/dist/css/shepherd.css"/>
+<script src="https://cdn.jsdelivr.net/npm/shepherd.js@10.0.1/dist/js/shepherd.min.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
   body {
@@ -100,6 +101,55 @@
   }
   #welcomeModal .flex-col {
     align-items: center;
+    z-index: 50;
+  }
+  /* Update modal z-index */
+  #welcomeModal {
+    z-index: 1000 !important;
+  }
+  /* Update map container z-index */
+  #map {
+    z-index: 1 !important;
+  }
+  /* Ensure modal content stays above map */
+  #welcomeModal .modal-content {
+    z-index: 1001 !important;
+    position: relative;
+  }
+  /* Add custom tour styles */
+  .shepherd-theme-custom {
+    direction: rtl;
+    font-family: 'Tajawal', sans-serif;
+  }
+  .shepherd-theme-custom .shepherd-content {
+    max-width: 400px;
+    padding: 0;
+  }
+  .shepherd-theme-custom .shepherd-header {
+    background: #042a52;
+    padding: 1rem;
+  }
+  .shepherd-theme-custom .shepherd-title {
+    color: white;
+    font-size: 1.1em;
+  }
+  .shepherd-theme-custom .shepherd-text {
+    padding: 1rem;
+  }
+  .shepherd-theme-custom .shepherd-footer {
+    padding: 0.5rem;
+  }
+  .shepherd-theme-custom .shepherd-button {
+    background: #042a52;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+    margin-right: 0.5rem;
+    padding: 0.5rem 1.5rem;
+  }
+  .shepherd-theme-custom .shepherd-button-secondary {
+    background: #6B7280;
   }
 </style>
 </head>
@@ -210,13 +260,13 @@
           </p>
           <ul class="text-sm text-gray-500 list-disc list-inside mb-4">
             <ul>
-    <li>نحن ملتزمون بحماية خصوصيتك وضمان أقصى درجات السرية والأمان للبيانات التي تشاركها عبر الصفحة.</li>
-    <li>جميع البيانات التي يتم تقديمها عبر الصفحة تُعامل بسرية تامة. لا نطلب منك أي معلومات قد تكشف عن هويتك، ويتم التعامل مع البلاغات بحرص شديد لضمان أمان وخصوصية المبلّغ.</li>
-    <li>نستخدم أقوى تقنيات التشفير لضمان حماية البيانات أثناء الإرسال. جميع الاتصالات عبر الموقع آمنة ومشفرة، ولا يمكن لأي جهة غير مصرح لها الاطلاع عليها.</li>
-    <li>لا يتم تخزين البيانات الحساسة لفترات طويلة. تُعالج المعلومات المرسلة ثم تُحذف بشكل آمن فور الانتهاء من معالجتها، مما يضمن عدم الاحتفاظ بأي بيانات قد تؤدي إلى التعرف على المبلّغ.</li>
-    <li>نحن مجهزون بأحدث أنظمة الحماية الإلكترونية لضمان أن البيانات لا تتعرض لأي اختراق أو تهديد، مما يوفر بيئة آمنة تماماً للتبليغ عن أي نشاطات مشبوهة.</li>
-    <li>نحن ملتزمون بضمان أمان بياناتك وسريتها التامة، ولن يتم مشاركة أي معلومات مع أطراف أخرى باي شكل من الاشكال.</li>
-    <li>أي تلاعب أو إساءة استخدام الصفحة أو محاولات غير الغرض المحدد له سوف تؤدي إلى اتخاذ إجراءات قانونية صارمة بحق المتسببين، وسيتم محاسبتهم ومعاقبتهم وفقاً للقوانين السارية. نحن جادون في الحفاظ على أمان وسلامة هذا المنبر ولن نتسامح مع أي محاولات لتشويه أو تخريب استخدامه.</li>
+              <li>نحن ملتزمون بحماية خصوصيتك وضمان أقصى درجات السرية والأمان للبيانات التي تشاركها عبر الصفحة.</li>
+              <li>جميع البيانات التي يتم تقديمها عبر الصفحة تُعامل بسرية تامة. لا نطلب منك أي معلومات قد تكشف عن هويتك، ويتم التعامل مع البلاغات بحرص شديد لضمان أمان وخصوصية المبلّغ.</li>
+              <li>نستخدم أقوى تقنيات التشفير لضمان حماية البيانات أثناء الإرسال. جميع الاتصالات عبر الموقع آمنة ومشفرة، ولا يمكن لأي جهة غير مصرح لها الاطلاع عليها.</li>
+              <li>لا يتم تخزين البيانات الحساسة لفترات طويلة. تُعالج المعلومات المرسلة ثم تُحذف بشكل آمن فور الانتهاء من معالجتها، مما يضمن عدم الاحتفاظ بأي بيانات قد تؤدي إلى التعرف على المبلّغ.</li>
+              <li>نحن مجهزون بأحدث أنظمة الحماية الإلكترونية لضمان أن البيانات لا تتعرض لأي اختراق أو تهديد، مما يوفر بيئة آمنة تماماً للتبليغ عن أي نشاطات مشبوهة.</li>
+              <li>نحن ملتزمون بضمان أمان بياناتك وسريتها التامة، ولن يتم مشاركة أي معلومات مع أطراف أخرى باي شكل من الاشكال.</li>
+              <li>أي تلاعب أو إساءة استخدام الصفحة أو محاولات غير الغرض المحدد له سوف تؤدي إلى اتخاذ إجراءات قانونية صارمة بحق المتسببين، وسيتم محاسبتهم ومعاقبتهم وفقاً للقوانين السارية. نحن جادون في الحفاظ على أمان وسلامة هذا المنبر ولن نتسامح مع أي محاولات لتشويه أو تخريب استخدامه.</li>
             </ul>
           </ul>
           <p class="text-sm text-gray-500">
@@ -233,6 +283,22 @@
           <button id="continueBtn" class="px-4 py-2 bg-navy text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300" disabled>
             متابعة
           </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Tour Prompt -->
+  <div id="tourPromptModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden">
+    <div class="relative top-20 mx-auto p-5 border w-full sm:w-96 shadow-lg rounded-md bg-white">
+      <div class="mt-3 text-center">
+        <h3 class="text-lg font-medium text-gray-900">هل تريد جولة إرشادية سريعة؟</h3>
+        <div class="mt-4">
+          <p class="text-sm text-gray-500">سنريك كيفية استخدام منصة الإبلاغ خطوة بخطوة</p>
+        </div>
+        <div class="mt-4 flex justify-center space-x-4">
+          <button id="startTourBtn" class="px-4 py-2 bg-navy text-white rounded-md hover:bg-blue-700">نعم، أرني الجولة</button>
+          <button id="skipTourBtn" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">تخطي</button>
         </div>
       </div>
     </div>
@@ -326,7 +392,7 @@
         console.error('Unhandled promise rejection:', event.reason);
         Swal.fire({
           title: 'خطأ',
-          text: 'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى لاحقًا.',
+          text: 'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى لاحقاً.',
           icon: 'error',
           confirmButtonText: 'حسناً'
         });
@@ -446,7 +512,7 @@
           } else {
             Swal.fire({
               title: 'خطأ',
-              text: 'حدث خطأ أثناء إرسال البلاغ. يرجى المحاولة مرة أخرى لاحقًا.',
+              text: 'حدث خطأ أثناء إرسال البلاغ. يرجى المحاولة مرة أخرى لاحقاً.',
               icon: 'error',
               confirmButtonText: 'حسناً'
             });
@@ -456,7 +522,7 @@
           console.error('Error:', error);
           Swal.fire({
             title: 'خطأ',
-            text: 'حدث خطأ أثناء إرسال البلاغ. يرجى المحاولة مرة أخرى لاحقًا.',
+            text: 'حدث خطأ أثناء إرسال البلاغ. يرجى المحاولة مرة أخرى لاحقاً.',
             icon: 'error',
             confirmButtonText: 'حسناً'
           });
@@ -492,6 +558,171 @@
 
       document.getElementById('continueBtn').addEventListener('click', function() {
         document.getElementById('welcomeModal').classList.add('hidden');
+        document.getElementById('tourPromptModal').classList.remove('hidden');
+      });
+
+      // Add tour initialization code
+      function initTour() {
+        const tour = new Shepherd.Tour({
+          defaultStepOptions: {
+            cancelIcon: {
+              enabled: true
+            },
+            classes: 'shepherd-theme-custom',
+            scrollTo: true
+          }
+        });
+
+        // Add steps to tour
+        tour.addStep({
+          id: 'activity-type',
+          title: 'نوع النشاط المشبوه',
+          text: 'اختر نوع النشاط المشبوه من القائمة المنسدلة. يمكنك اختيار الفئة الأنسب للنشاط الذي تريد الإبلاغ عنه.',
+          attachTo: {
+            element: '#activityType',
+            on: 'bottom'
+          },
+          buttons: [
+            {
+              text: 'التالي',
+              action: () => tour.next()
+            }
+          ]
+        });
+
+        tour.addStep({
+          id: 'description',
+          title: 'وصف تفصيلي',
+          text: 'قم بكتابة وصف تفصيلي للنشاط المشبوه. كلما كانت التفاصيل أكثر دقة، كلما كان ذلك أفضل.',
+          attachTo: {
+            element: '#description',
+            on: 'bottom'
+          },
+          buttons: [
+            {
+              text: 'السابق',
+              action: () => tour.back(),
+              classes: 'shepherd-button-secondary'
+            },
+            {
+              text: 'التالي',
+              action: () => tour.next()
+            }
+          ]
+        });
+
+        tour.addStep({
+          id: 'location-search',
+          title: 'تحديد الموقع',
+          text: 'اكتب اسم المدينة أو الحي أو الشارع ثم اضغط على زر البحث. يمكنك أيضاً النقر مباشرة على الخريطة لتحديد الموقع بدقة.',
+          attachTo: {
+            element: '#locationSearch',
+            on: 'bottom'
+          },
+          buttons: [
+            {
+              text: 'السابق',
+              action: () => tour.back(),
+              classes: 'shepherd-button-secondary'
+            },
+            {
+              text: 'التالي',
+              action: () => tour.next()
+            }
+          ]
+        });
+
+        tour.addStep({
+          id: 'file-upload',
+          title: 'إرفاق الملفات',
+          text: 'يمكنك إرفاق صور أو فيديوهات أو مستندات تتعلق بالبلاغ. هذا سيساعد في توثيق النشاط المشبوه.',
+          attachTo: {
+            element: '#file',
+            on: 'bottom'
+          },
+          buttons: [
+            {
+              text: 'السابق',
+              action: () => tour.back(),
+              classes: 'shepherd-button-secondary'
+            },
+            {
+              text: 'التالي',
+              action: () => tour.next()
+            }
+          ]
+        });
+
+        tour.addStep({
+          id: 'contact',
+          title: 'معلومات الاتصال (اختياري)',
+          text: 'يمكنك تقديم رقم هاتفك أو بريدك الإلكتروني إذا كنت ترغب في ذلك. هذا سيمكننا من التواصل معك للحصول على مزيد من المعلومات أو لتقديم مكافأة.',
+          attachTo: {
+            element: '#contact',
+            on: 'bottom'
+          },
+          buttons: [
+            {
+              text: 'السابق',
+              action: () => tour.back(),
+              classes: 'shepherd-button-secondary'
+            },
+            {
+              text: 'التالي',
+              action: () => tour.next()
+            }
+          ]
+        });
+
+        tour.addStep({
+          id: 'submit-button',
+          title: 'زر إرسال البلاغ',
+          text: 'عند الانتهاء من إدخال جميع المعلومات المطلوبة، اضغط على زر "إرسال البلاغ" لإرسال المعلومات بشكل آمن ومشفّر إلى جهاز الأمن.',
+          attachTo: {
+            element: 'button[type="submit"]',
+            on: 'top'
+          },
+          buttons: [
+            {
+              text: 'السابق',
+              action: () => tour.back(),
+              classes: 'shepherd-button-secondary'
+            },
+            {
+              text: 'التالي',
+              action: () => tour.next()
+            }
+          ]
+        });
+
+        tour.addStep({
+          id: 'emergency-number',
+          title: 'رقم الاتصال المجاني',
+          text: 'يمكنك الاتصال بنا مجانًا على الرقم الموضح للحصول على مزيد من المعلومات أو لتقديم البلاغات عبر الهاتف.',
+          attachTo: {
+            element: 'section.text-center.py-8',
+            on: 'top'
+          },
+          buttons: [
+            {
+              text: 'السابق',
+              action: () => tour.back(),
+              classes: 'shepherd-button-secondary'
+            },
+            {
+              text: 'إنهاء',
+              action: () => tour.complete()
+            }
+          ]
+        });
+
+        return tour;
+      }
+
+      // Update the tour start button handler
+      document.getElementById('startTourBtn').addEventListener('click', function() {
+        document.getElementById('tourPromptModal').classList.add('hidden');
+        initTour().start();
       });
 
       // Instructions Modal
